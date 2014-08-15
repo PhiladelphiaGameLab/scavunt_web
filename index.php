@@ -8,21 +8,23 @@
 		onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /><br /><br />
 
 	<label for="title">Name of the Game:</label>
-	<input type="text" name="gamen" value="title" />
+	<input type="text" name="game_name" value="title" />
 	<br/>
 	<label for="desc">Game Description:</label>
-	<textarea type="text" rows="5" cols="20" name="gamed" value="desc">Enter game description here.</textarea>
+	<textarea type="text" rows="5" cols="20" name="game_desc" value="desc">Enter game description here.</textarea>
 	<br />
 	
 </div>
 
-<form method="post" action="/cgi-bin/show_params.cgi">
+<form method="post" action="">
 
 	<span id="writeroot"></span>
 
 	<input type="button" id="addClusters" onclick="addNewCluster();" value="Add a Cluster" />
 	<input type="submit" value="Send form" />
-
+	<?php
+		var_dump($_POST);
+	?>
 </form>
 <script type="text/javascript">
 	var counter = 0;
@@ -98,11 +100,11 @@
 		newDiv.innerHTML = 
 		"<br>Event "+eventCount[clusNum]+ "<input type='button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='Add a Task'>"+
 		"<br><label for='ename'>Event Name:</label>"+
-		"<input type='text' name='"+clusNum+"eventn"+eventCount[clusNum]+"' for='ename'/>"+
+		"<input type='text' name='eventn"+clusNum+"_"+eventCount[clusNum]+"' for='ename' required/>"+
 		"<br><label for='latv'>Latitude:</label>"+
-		"<input type='number' name='"+clusNum+"latitude"+eventCount[clusNum]+"' for='latv'/><br>"+
+		"<input type='number' name='latitude"+clusNum+"_"+eventCount[clusNum]+"' for='latv'/><br>"+
 		"<label for='lonv'>Longitude:</label>"+
-		"<input type='number' name='"+clusNum+"longitude"+eventCount[clusNum]+"' for='lonv'/>";
+		"<input type='number' name='longitude"+clusNum+"_"+eventCount[clusNum]+"' for='lonv'/>";
 		
 		document.getElementById('clus'+clusNum).appendChild(newDiv);
 	}
@@ -114,10 +116,32 @@
         taskCount[clus][eve]++;
         var newDiv = document.createElement('div');
         newDiv.setAttribute("id", "clus" + clus + "event" + eve + "task" + taskCount[clus][eve]);
-        newDiv.innerHTML = "<br>Task " + taskCount[clus][eve];
+        newDiv.innerHTML = "<br>Task " + taskCount[clus][eve]+
+        "<br><label for='tname'>Task Name:</label>"+
+		"<input type='text' name='task_name"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='tname'/>"+
+		"<br><label for='actype'>Activity Type:</label>"+
+		"<select name='activity_type"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='actype'>"+
+			"<option value='receive_text'>Receive Text</option>"+
+			"<option value='receive_audio'>Receive Audio</option>"+
+			"<option value='receive_video'>Receive Video</option>"+
+			"<option value='receive_image'>Receive Image</option>"+
+			"<option value='take_picture'>Take Picture</option>"+
+			"<option value='record_video'>Record Video</option>"+
+			"<option value='response_text'>Response Text</option>"+
+			"<option value='service_receive_audio'>Service Receive Audio</option>"+
+		"</select>"+
+		"<br><label for='acatype'>Activation Type:</label>"+
+		"<select name='activatype"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='acatype'>"+
+			"<option value='instant'>Instant</option>"+
+			"<option value='in_range_once'>In Range Once</option>"+
+			"<option value='in_range_only'>In Range Only</option>"+
+		"</select>"+
+		"<br><label for='delay'>Delay on Task:</label>"+
+		"<input type='number' name='delay"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='delay'>"+
+		"<br><input type='radio' name='comp"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' value='must_complete'>Must Complete"+
+		"&nbsp&nbsp<input type='radio' name='comp"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' value='must_complete'>Optional Complete";
 
         document.getElementById('clus'+clus+'event'+eve).appendChild(newDiv);
-
 	}
 	
 	window.onload = addFields;
