@@ -91,12 +91,12 @@
 		if(eventCount[clusNum] == null){
 			eventCount[clusNum] = 0;
 		}
+		taskCount[clusNum] = [];
 		eventCount[clusNum]++;
-        taskCount.push([clusNum,eventCount[clusNum]]);
-		var newDiv = document.createElement('div');
+        var newDiv = document.createElement('div');
 		newDiv.setAttribute("id","clus"+ clusNum +"event"+eventCount[clusNum]);
 		newDiv.innerHTML = 
-		"<br>Event "+eventCount[clusNum]+"<input type='button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='Add a Task'>"
+		"<br>Event "+eventCount[clusNum]+ "<input type='button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='Add a Task'>"+
 		"<br><label for='ename'>Event Name:</label>"+
 		"<input type='text' name='"+clusNum+"eventn"+eventCount[clusNum]+"' for='ename'/>"+
 		"<br><label for='latv'>Latitude:</label>"+
