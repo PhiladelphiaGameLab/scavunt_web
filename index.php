@@ -92,6 +92,7 @@
 			eventCount[clusNum] = 0;
 		}
 		eventCount[clusNum]++;
+        taskCount.push([clusNum,eventCount[clusNum]]);
 		var newDiv = document.createElement('div');
 		newDiv.setAttribute("id","clus"+ clusNum +"event"+eventCount[clusNum]);
 		newDiv.innerHTML = 
@@ -109,7 +110,13 @@
 	function addNewTask(clus, eve){
 		if(taskCount[clus][eve] == null){
 			taskCount[clus][eve] = 0;
-		}
+        }
+        taskCount[clus][eve]++;
+        var newDiv = document.createElement('div');
+        newDiv.setAttribute("id", "clus" + clus + "event" + eve + "task" + taskCount[clus][eve]);
+        newDiv.innerHTML = "<br>Task " + taskCount[clus][eve];
+
+        document.getElementById('clus'+clus+'event'+eve).appendChild(newDiv);
 
 	}
 	
