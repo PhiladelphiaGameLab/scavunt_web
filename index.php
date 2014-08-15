@@ -8,23 +8,21 @@
 		onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /><br /><br />
 
 	<label for="title">Name of the Game:</label>
-	<input type="text" name="game_name" value="title" />
+	<input type="text" name="game_name" value="title" required/>
 	<br/>
 	<label for="desc">Game Description:</label>
-	<textarea type="text" rows="5" cols="20" name="game_desc" value="desc">Enter game description here.</textarea>
+	<textarea type="text" rows="5" cols="20" name="game_desc" required>yay</textarea>
 	<br />
 	
 </div>
 
-<form method="post" action="">
+<form method="post" action="dataentry.php">
 
 	<span id="writeroot"></span>
 
 	<input type="button" id="addClusters" onclick="addNewCluster();" value="Add a Cluster" />
 	<input type="submit" value="Send form" />
-	<?php
-		var_dump($_POST);
-	?>
+	
 </form>
 <script type="text/javascript">
 	var counter = 0;
@@ -46,7 +44,7 @@
 		for (var i=0;i<newField.length;i++) {
 			var theName = newField[i].name
 			if (theName)
-				newField[i].name = theName + counter;
+				newField[i].name = theName;
 		}
 		var insertHere = document.getElementById('writeroot');
 		insertHere.parentNode.insertBefore(newFields,insertHere);
@@ -100,12 +98,13 @@
 		newDiv.innerHTML = 
 		"<br>Event "+eventCount[clusNum]+ "<input type='button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='Add a Task'>"+
 		"<br><label for='ename'>Event Name:</label>"+
-		"<input type='text' name='eventn"+clusNum+"_"+eventCount[clusNum]+"' for='ename' required/>"+
+		"<input type='text' name='event_name"+clusNum+"_"+eventCount[clusNum]+"' for='ename' required/>"+
 		"<br><label for='latv'>Latitude:</label>"+
-		"<input type='number' name='latitude"+clusNum+"_"+eventCount[clusNum]+"' for='latv'/><br>"+
+		"<input type='number' name='lat"+clusNum+"_"+eventCount[clusNum]+"' for='latv' step='any' required/><br>"+
 		"<label for='lonv'>Longitude:</label>"+
-		"<input type='number' name='longitude"+clusNum+"_"+eventCount[clusNum]+"' for='lonv'/>";
-		
+		"<input type='number' name='log"+clusNum+"_"+eventCount[clusNum]+"' for='lonv'step='any'required/>"+
+		"<br><label for='distv'>Distance to Activate:</label>"+
+		"<input type='number' name='distance"+clusNum+"_"+eventCount[clusNum]+"' for='distv'step='any'required/>";
 		document.getElementById('clus'+clusNum).appendChild(newDiv);
 	}
 
