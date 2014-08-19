@@ -130,7 +130,7 @@
 			"<option value='service_receive_audio'>Service Receive Audio</option>"+
 		"</select>"+
 		"<br><label for='acatype'>Activation Type:</label>"+
-		"<select name='activatype"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='acatype'>"+
+		"<select name='activation_type"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='acatype'>"+
 			"<option value='instant'>Instant</option>"+
 			"<option value='in_range_once'>In Range Once</option>"+
 			"<option value='in_range_only'>In Range Only</option>"+
@@ -138,7 +138,7 @@
 		"<br><label for='delay'>Delay on Task:</label>"+
 		"<input type='number' name='delay"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' for='delay'>"+
 		"<br><input type='radio' name='comp"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' value='must_complete'>Must Complete"+
-		"&nbsp&nbsp<input type='radio' name='comp"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' value='must_complete'>Optional Complete";
+		"&nbsp&nbsp<input type='radio' name='comp"+clus+"_"+eve+"_"+taskCount[clus][eve]+"' value='opt_complete'>Optional Complete";
 
         document.getElementById('clus'+clus+'event'+eve).appendChild(newDiv);
 	}
