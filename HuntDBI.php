@@ -10,7 +10,6 @@ class HuntDBI{
 			//MySQL connect and query for Games
 			$qy = "SELECT * FROM Games WHERE game_name = '$gamename';";
 			$game = $this->makeQuery($qy);
-
 			//Store game data in response
 			$response["game"] = $game;
 
@@ -34,7 +33,6 @@ class HuntDBI{
 			//Start Query and store it
 			$query = "SELECT * FROM Events WHERE game_id = $game_id;";
 			$events = $this->makeQuery($query);
-
 			$i = 0;
 			while($i < $numOfEvents){
 				$index = 'event'.$i;
@@ -52,7 +50,6 @@ class HuntDBI{
 		public function getTasks($event_id, $numOfTasks, $num){
 			$query = "SELECT * FROM Tasks WHERE event_id = $event_id;";
 			$tasks = $this->makeQuery($query);
-
 			$j = 0;
 			while($j < $numOfTasks){
 				$index = 'event'.$num.'_task'.$j;
@@ -71,7 +68,6 @@ class HuntDBI{
 		public function getMedia($task_id, $numOfMedia, $numE, $numT){
 			$query = "SELECT * FROM Media WHERE task_id = $task_id;";
 			$media = $this->makeQuery($query);
-
 			$k = 0;
 			while($k < $numOfMedia){
 				$index = 'event'.$numE.'_task'.$numT.'_media'.$k;

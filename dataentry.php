@@ -67,10 +67,34 @@ function submitToDB(){
 					$comp = 0;
 				}
 				$uni_id = $temp_game[0]."_".$arrOfTasks[$l][$m][$n];
-				$taskquery = "INSERT INTO Tasks VALUES(null,".$temp_event[0].",'".$postarr["activity_type".$arrOfTasks[$l][$m][$n].""]."','".$postarr["task_name".$arrOfTasks[$l][$m][$n].""]."','".$postarr["activation_type".$arrOfTasks[$l][$m][$n].""]."',".$postarr["delay".$arrOfTasks[$l][$m][$n].""].",0,".$comp.",'".$uni_id."');";
+				$taskquery = "INSERT INTO Tasks VALUES(null,".$temp_event[0].",'".$postarr["activity_type".$arrOfTasks[$l][$m][$n].""]."','".$postarr["task_name".$arrOfTasks[$l][$m][$n].""]."','".$postarr["activation_type".$arrOfTasks[$l][$m][$n].""]."',".$postarr["delay".$arrOfTasks[$l][$m][$n].""].",1,".$comp.",'".$uni_id."');";
 				mysqli_query($con, $taskquery);
+				echo $taskquery;
+				$taskid_query = "SELECT id FROM Tasks WHERE uni_id = '".$uni_id."'";
+				$ret = mysqli_query($con, $taskid_query);
+				$temp_task = mysqli_fetch_array($ret);
+				$type = "";
+				if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "cityhall"){
+					$url = "http://wibblywobblytracker.com/scavunt_web/resources/city_hall.jpg";
+					$type="image";
+				}
+				else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "clothespin"){
+                                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/clothespin.jpg";
+					$type="image";
+                                }
+				else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "municipal"){
+                                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/municipal.jpg";
+                                        $type="image";
+                                }
+				else {
+					$url = $postarr["media".$arrOfTasks[$l][$m][$n].""];
+					$type="text";
+				}
+				//$mediaquery = "INSERT INTO Media VALUES(null,'".$url."','image',".$temp_task[0].", null);";
+				$mediaquery = "INSERT INTO Media VALUES(null,'".$url."','".$type."',".$temp_task[0].", null);";
+				mysqli_query($con, $mediaquery);
 				$n++;
-// 				echo $taskquery;
+ 				echo $mediaquery;
 			}
 
 			$n = 1;
@@ -85,7 +109,7 @@ function submitToDB(){
 
 function display()
 {
-    var_dump($_POST);
+    var_dump($postarr);
 }
 if(isset($_POST['game_name']))
 {
