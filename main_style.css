@@ -1,72 +1,194 @@
+/*-----------------space for inporting new fonts-----------------------*/
+
 @font-face {
     font-family: myFirstFont;
     src: url(CaviarDreams.ttf);
 }
 
-html{
+
+
+
+/*-----------big wrapper for the whole website including background--------------- */
+
+body{
+   
+    margin-top: -10px;
+    margin-bottom: -10px;
     background-color: #FF946C;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
 }
 
-body {
+/*the webpage excluding the background*/
+
+.ground {
+    min-height: 1000px;
     color: #592714;
-    font-family: 'Raleway', sans-serif;
     background-color: #92FFEB;
     padding: 12px;
     margin: auto;
+    margin-top: -10px;
+    margin-bottom: -100px;
     width: 1050px;
     -webkit-box-shadow: 0px 0px 100px -18px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 0px 100px -18px rgba(0,0,0,0.5);
     box-shadow: 0px 0px 100px -18px rgba(0,0,0,0.5);
 }
 
-
+/*--------------------------"Create a new Game" Wraper and everything withing-------------------------*/
+/*-----wraper--------*/
 #wr1{
+    
     color: #ffffff;
     margin: 12px;
-    padding: 12px;
+    padding: 2px 12px 22px 22px;
     background-color: #45B299;
     border-radius: 20px;
 }
+
+/*styling for the title*/
+#wr1 h2{
+    font-family: 'Righteous', cursive;
+    text-transform: uppercase;
+    font-size: 32px;
+    padding-left: -10px;
+}
+
+
+#rootContent{
+    text-align: right;
+    
+}
+#rootContent td{
+    padding: 3px;
+    vertical-align:top;
+}
+
+/*styling the first input field*/
+#wr1 input, #wr1 textarea{
+     border: none;
+    border-radius: 7px;
+    width: 265px;
+    min-height: 22px;
+    text-align: left;
+}
+
+/*-------------------Clusters wraper and specific styling within----------------------*/
 
 .Clusters{
     background-color: #45B299;
     color: ffffff;
     margin: 12px;
-    padding-bottom: 40px;
+    padding: 12px 0px 25px 0px;
     border-radius: 20px;
     border: 12px;
 }
 
+/*styling the title for Clusters*/
+
+.Clusters span.title{
+    text-transform: uppercase;
+    font-family: 'Righteous', cursive;
+    font-size: 20px;
+    margin: 10px;
+    padding: 3px 20px 3px 20px;
+
+}
+
+.hidebutton{
+    float: right;
+    margin-right: 10px;
+}
+
+.hidebutton:focus ~ .Events {
+  display: none;
+}
+
+/*-------------------------------Events Wraper and specified styling----------------------------------------------*/
+
 .Events{
+    
     color: black;
-    background-color: #ffffff;
+    background-color: #DEFFF9;
     overflow: auto;
     padding: 12px;
-
     width: auto;
 
 }
 
+.Events span.title{
+    color: #6F7F7D;
+}
+
+/*------------------------------styling for the event--------------------------------*/
+
 .event{
+    font-weight: 400;
      background-color: #6CFFE3;
     border-radius: 5px;
     margin-left: 12px;
-    margin-right: 12px;
+    margin-right: 16px;
     margin-top: 12px;
     padding: 12px;
 }
 
+#eventContent{
+    text-align: right;
+    margin-top: 5px;
+    padding: 3px;
+}
+
+
+/*-----------------------styling for Task--------------------------------*/
+
 .Tasks{
-    width: 285px;
-    height: 450px;
+    width: 450px;
+    height: 360px;
     float: left;
     background-color: #6CFFE3;
-    margin: 12px;
+    margin: 18px 12px 12px 12px;
     padding: 12px;
     border-radius: 5px;
 }
 
+.Tasks span.title{
+
+}
+
+input[type="radio"]{
+    display:inline-block;
+    background: white;
+    margin-right: 10px;
+}
+
+.taskContent{
+    text-align: right;
+    margin-top: 12px;
+    padding: 6px;
+}
+
+.taskContent input, .taskContent select{
+    border-radius: 5px;
+    width: 315px;
+}
+
+.mediaTextContent{
+    vertical-align: top;
+    padding-left: 10px;
+}
+
+.mediaTextContent table td{
+    vertical-align: top;
+    padding-top: 0px;
+}
+
+.mediaTextContent label.title{
+    padding-left: 14px;
+}
+
+/*----------------SELECTION area--------------------*/
 input, select{
+     border: none;
     border-radius: 5px;
 }
 
@@ -76,15 +198,18 @@ span input{
     overflow-x: scroll;
 }
 
+/*--------------buttons style---------------------*/
+
 .add_task_button, .add_cluster_button, .make_game_button, .add_event_button{
     color: white;
     text-decoration:none;
     text-shadow: none;
-    background-color:#8A442D;
+    background-color:#6F7F7D;
 	text-align:center;
     font-weight: 800;
     font-size: 12px;
-    padding: 3px 12px 3px 12px;
+    margin-bottom:  10px;
+    padding: 3px 20px 3px 20px;
     border-radius: 5px;
     border-style: none;
 
@@ -93,7 +218,7 @@ span input{
 }
 
 .add_task_button:hover, .add_cluster_button:hover, .make_game_button:hover, .add_event_button:hover{
-	background-color:#5E2F1F;
+	background-color:#575542;
 }
 
 .add_task_button:active , .add_cluster_button:active , .make_game_button:active , .add_event_button:active {
@@ -105,14 +230,10 @@ span input{
 margin-left: 12px;
 }
 
-#GameName{
-    margin-left: 37px;
-}
+
     
 textarea{
-    border-radius: 5px;
-}
-
-.ground [label = title]{
-    color: white;
+    border: none;
+    outline: 0;
+    border-radius: 7px;
 }
