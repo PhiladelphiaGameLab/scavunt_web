@@ -84,6 +84,10 @@ body{
     border: 12px;
 }
 
+.Clusters + div{
+    display: none;
+}
+
 /*styling the title for Clusters*/
 
 .Clusters span.title{
@@ -104,10 +108,18 @@ body{
   display: none;
 }
 
+.showbutton{
+    float: right;
+    margin-right: 10px;
+}
+
+.showebutton:focus ~ .Events {
+  display: block;
+}
+
 /*-------------------------------Events Wraper and specified styling----------------------------------------------*/
 
 .Events{
-    
     color: black;
     background-color: #DEFFF9;
     overflow: auto;
@@ -119,6 +131,21 @@ body{
 .Events span.title{
     color: #6F7F7D;
 }
+
+.hidebutton2{
+    float: right;
+    margin-right: 10px;
+}
+
+.hidebutton2:focus ~.Tasks {
+  display: none;
+}
+
+.showbutton2{
+    float: right;
+    margin-right: 10px;
+}
+
 
 /*------------------------------styling for the event--------------------------------*/
 
@@ -137,7 +164,6 @@ body{
     margin-top: 5px;
     padding: 3px;
 }
-
 
 /*-----------------------styling for Task--------------------------------*/
 
@@ -167,9 +193,12 @@ input[type="radio"]{
     padding: 6px;
 }
 
-.taskContent input, .taskContent select{
+/*different input fields with the same width*/
+
+.taskContent input, .taskContent select, .mediaImageContent select{
     border-radius: 5px;
     width: 315px;
+    min-height: 18px;
 }
 
 .mediaTextContent{
@@ -184,6 +213,11 @@ input[type="radio"]{
 
 .mediaTextContent label.title{
     padding-left: 14px;
+}
+
+.mediaImageContent label{
+    padding-left: 10px;
+    padding-right: 3px;
 }
 
 /*----------------SELECTION area--------------------*/

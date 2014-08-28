@@ -70,7 +70,10 @@
                 newDiv.setAttribute("class", "Clusters");
                 newDiv.innerHTML = 
                 "<span class='title'>Cluster " + clusterCount + "</span>" +
-                "<input type='button' class='add_event_button' id='addEventsForClus"+clusterCount+"' onclick='addNewEvent("+clusterCount+");' value='ADD A EVENT' />";		
+                "<input type='button' class='add_event_button' id='addEventsForClus"+clusterCount+
+                    "' onclick='addNewEvent("+clusterCount+");' value='ADD A EVENT' />"+
+                    "<input type='button' class='hidebutton' value='Hide'>"+
+                    "<input type='button' class='showbutton' value='Show'>";		
             }
             var insertHere = document.getElementById('writeroot');
             insertHere.parentNode.insertBefore(newDiv,insertHere);
@@ -89,6 +92,8 @@
             newDiv.innerHTML = 
             "<div class='event'><span class='title'>Event "+eventCount[clusNum]+
                 '</span>'+ "<input type='button' class='add_task_button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='ADD A TASK'>"+
+                "<input type='button' class='hidebutton2' value='Hide'>"+
+                    "<input type='button' class='showbutton2' value='Show'>"+
             "<table id = 'eventContent'>"+
                 "<tr>"+
                      "<td><label for='ename'>Event Name:</label></td>"+

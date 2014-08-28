@@ -71,8 +71,14 @@
                 newDiv.innerHTML = 
                 "<span class='title'>Cluster " + clusterCount + "</span>" +
                 "<input type='button' class='add_event_button' id='addEventsForClus"+clusterCount+
-                    "' onclick='addNewEvent("+clusterCount+");' value='ADD A EVENT' />"+
-                    "<input type='button' class='hidebutton' value='Hide'>";		
+                    "' onclick='addNewEvent("+clusterCount+");' value='ADD A EVENT' />"
+                     /*
+                +
+
+                    "<input type='button' class='hidebutton' value='Hide'>"+
+                    "<input type='button' class='showbutton' value='Show'>"
+                    */
+                    ;		
             }
             var insertHere = document.getElementById('writeroot');
             insertHere.parentNode.insertBefore(newDiv,insertHere);
@@ -89,8 +95,13 @@
             newDiv.setAttribute("id","clus"+ clusNum +"event"+eventCount[clusNum]);
             newDiv.setAttribute("class", "Events");
             newDiv.innerHTML = 
-            "<div class='event'><span class='title'>Event "+eventCount[clusNum]+
-                '</span>'+ "<input type='button' class='add_task_button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='ADD A TASK'>"+
+        /*
+            "<input type='button' class='hidebutton2' value='Hide'>"+
+                    "<input type='button' class='showbutton2' value='Show'>"+
+        */
+            "<div class='event'>"+
+                "<span class='title'>Event "+eventCount[clusNum]+'</span>'+ 
+                "<input type='button' class='add_task_button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='ADD A TASK'>"+
             "<table id = 'eventContent'>"+
                 "<tr>"+
                      "<td><label for='ename'>Event Name:</label></td>"+
@@ -107,7 +118,7 @@
                 "<tr>"+
                     "<td><label for='distv'>Active Range:</label></td>"+
                     "<td><input type='number' name='distance"+clusNum+"_"+eventCount[clusNum]+"' for='distv'step='any'required/></td>"+
-                "</tr>"
+                "</tr>"+
             "</table>"+
             "</div>"
             ;
@@ -195,7 +206,7 @@
                             var newDiv = document.createElement('div');
                             newDiv.setAttribute("id", "clus" + clus + "event" + eve + "task" + task + "media");
                             newDiv.setAttribute("class","mediaImageContent");
-                            newDiv.innerHTML = "<br><label for='media'>Select Media:</label>"+
+                            newDiv.innerHTML = "<label for='media'>Select Media:</label>"+
                             "<select name='media"+clus+"_"+eve+"_"+task+"' for='media'>"+
                                     "<option value='cityhall'>City Hall</option>"+
                                     "<option value='clothespin'>The Clothespin</option>"+
