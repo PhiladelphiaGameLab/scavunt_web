@@ -33,6 +33,8 @@ body{
     -webkit-box-shadow: 0px 0px 100px -18px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 0px 100px -18px rgba(0,0,0,0.5);
     box-shadow: 0px 0px 100px -18px rgba(0,0,0,0.5);
+    
+    
 }
 
 /*--------------------------"Create a new Game" Wraper and everything withing-------------------------*/
@@ -77,13 +79,20 @@ body{
 
 .Clusters{
     overflow: hidden;
-    max-height: inherit;
+    max-height: 10000px;
     background-color: #45B299;
     color: ffffff;
     margin: 12px;
-    padding: 12px 0px 25px 0px;
+    padding: 7px 0px 10px 0px;
     border-radius: 20px;
-    border: 12px;
+    /* ------------  below are the actual transition functions for each browser ------*/
+    transition: max-height 1s, background-color 1.5s;
+    -moz-transition: max-height s, background-color 1.5s;
+    /* Firefox 4 */
+    -webkit-transition: max-height 1s, background-color 1.5s;
+    /* Safari and Chrome */
+    -o-transition: max-height 1s, background-color 1.5s;
+    /* Opera */
 }
 
 /*styling the title for Clusters*/
@@ -92,28 +101,23 @@ body{
     text-transform: uppercase;
     font-family: 'Righteous', cursive;
     font-size: 20px;
-    margin: 10px;
+    margin: 0px 0px 0px 10px;
     padding: 3px 20px 3px 20px;
 
 }
 
-.hidebutton{
-    float: right;
-    margin-right: 10px;
-}
-
-.hidebutton:focus ~ .Clusters {
-  /*display: none;*/
-    max-height: 10px;
-}
-
-.showbutton{
-    float: right;
-    margin-right: 10px;
-}
-
-.showebutton:focus ~ .Events {
-  display: block;
+.hide {
+    background: #83BFB1;
+    max-height: 16px;
+    
+    /* ------------  below are the actual transition functions for each browser ------*/
+    transition: max-height 1s, background-color 1.5s;
+    -moz-transition: max-height 1s, background-color 1.5s;
+    /* Firefox 4 */
+    -webkit-transition: max-height 1s, background-color 1.5s;
+    /* Safari and Chrome */
+    -o-transition: max-height 1s, background-color 1.5s;
+    /* Opera */
 }
 
 /*-------------------------------Events Wraper and specified styling----------------------------------------------*/
@@ -124,27 +128,29 @@ body{
     overflow: auto;
     padding: 12px;
     width: auto;
-
+    overflow: hidden;
+    
+    /* ------------  below are the actual transition functions for each browser ------*/
+    transition: max-height 1s, background-color 1.5s;
+    -moz-transition: max-height 1s, background-color 1.5s;
+    /* Firefox 4 */
+    -webkit-transition: max-height 1s, background-color 1.5s;
+    /* Safari and Chrome */
+    -o-transition: max-height 1s, background-color 1.5s;
+    /* Opera */
 }
 
 .Events span.title{
     color: #6F7F7D;
 }
 
-.hidebutton2{
-    float: right;
-    margin-right: 10px;
+.Events.hide{
+    max-height: 90000px;
 }
 
-.hidebutton2:focus ~.Tasks {
-  display: none;
+.hide .add_event_button, .hide .add_task_button{
+    display: none;
 }
-
-.showbutton2{
-    float: right;
-    margin-right: 10px;
-}
-
 
 /*------------------------------styling for the event--------------------------------*/
 
@@ -162,6 +168,15 @@ body{
     text-align: right;
     margin-top: 5px;
     padding: 3px;
+}
+
+.event.hide{
+    max-height: 200px;
+    background-color: #56CCB6;
+}
+
+.event.hide ~ .Tasks{
+    display: none;
 }
 
 /*-----------------------styling for Task--------------------------------*/

@@ -68,20 +68,42 @@
                 var newDiv = document.createElement('div');
                 newDiv.setAttribute("id","clus"+clusterCount);
                 newDiv.setAttribute("class", "Clusters");
+                newDiv.addEventListener("click", function(e) {
+                        var el = e.target;
+                        var className = "hide";
+                        if( hasClass(el, "hide") ) {addClass(el, "hide");} 
+                        else {removeClass(el, "hide");}
+                    });
                 newDiv.innerHTML = 
                 "<span class='title'>Cluster " + clusterCount + "</span>" +
-                "<input type='button' class='add_event_button' id='addEventsForClus"+clusterCount+
-                    "' onclick='addNewEvent("+clusterCount+");' value='ADD A EVENT' />"+
-
-                    "<input type='button' class='hidebutton' value='Hide'>"+
-                    "<input type='button' class='showbutton' value='Show'>"
-                    ;		
+                "<input type='button' class='add_event_button' id='addEventsForClus"+clusterCount+"' onclick='addNewEvent("+clusterCount+");' value='ADD A EVENT' />"
+                ;		
             }
             var insertHere = document.getElementById('writeroot');
             insertHere.parentNode.insertBefore(newDiv,insertHere);
 
         }
-
+//------------------------------------------------------Code for hiding contents-------------------------------------------------------------------------------------------//
+        function hasClass(el, className) {
+            if (el.classList)
+                return el.classList.contains(className) ? 0 : 1;
+            else
+                return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className) ? 0 : 1;
+        }
+        function addClass(el, className) {
+            if (el.classList)
+                el.classList.add(className);
+            else
+                el.className += ' ' + className;
+        }
+        function removeClass(el, className) {
+            if (el.classList)
+                el.classList.remove(className);
+            else
+            el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+        
+//------------------------------------------------------Code for hiding contents-------------------------------------------------------------------------------------------//        
         function addNewEvent(clusNum){
             if(eventCount[clusNum] == null){
                 eventCount[clusNum] = 0;
