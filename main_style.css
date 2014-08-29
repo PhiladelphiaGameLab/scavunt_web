@@ -76,16 +76,14 @@ body{
 /*-------------------Clusters wraper and specific styling within----------------------*/
 
 .Clusters{
+    overflow: hidden;
+    max-height: inherit;
     background-color: #45B299;
     color: ffffff;
     margin: 12px;
     padding: 12px 0px 25px 0px;
     border-radius: 20px;
     border: 12px;
-}
-
-.Clusters + div{
-    display: none;
 }
 
 /*styling the title for Clusters*/
@@ -104,8 +102,9 @@ body{
     margin-right: 10px;
 }
 
-.hidebutton:focus ~ .Events {
-  display: none;
+.hidebutton:focus ~ .Clusters {
+  /*display: none;*/
+    max-height: 10px;
 }
 
 .showbutton{
