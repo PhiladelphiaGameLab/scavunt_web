@@ -83,7 +83,7 @@ body{
     background-color: #45B299;
     color: ffffff;
     margin: 12px;
-    padding: 7px 0px 10px 0px;
+    padding: 15px 0px 20px 0px;
     border-radius: 20px;
     /* ------------  below are the actual transition functions for each browser ------*/
     transition: max-height 1s, background-color 1.5s;
@@ -108,7 +108,7 @@ body{
 
 .hide {
     background: #83BFB1;
-    max-height: 16px;
+    max-height: 20px;
     
     /* ------------  below are the actual transition functions for each browser ------*/
     transition: max-height 1s, background-color 1.5s;
@@ -148,7 +148,7 @@ body{
     max-height: 90000px;
 }
 
-.hide .add_event_button, .hide .add_task_button{
+ .hide .add_task_button{
     display: none;
 }
 
