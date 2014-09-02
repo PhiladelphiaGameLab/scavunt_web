@@ -189,6 +189,7 @@ body{
     margin: 18px 12px 12px 12px;
     padding: 12px;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .Tasks span.title{
