@@ -13,11 +13,11 @@
                 <table id = "rootContent">
                     <tr>
                         <td><label for="title" id="GameName">Game Name:</label></td>
-                        <td><input type="text" name="game_name" size= 30 value="Enter the game name here" required/></td>
+                        <td><input type="text" name="game_name" size= 30 required/></td>
                     </tr>
                     <tr>
                         <td><label for="desc">Description:</label></td>
-                        <td><textarea type="text" rows="5" cols="30" name="game_desc" required>Enter the game description here</textarea></td>
+                        <td><textarea type="text" rows="5" cols="30" name="game_desc" required></textarea></td>
                     </tr>
                 </table>
             </div>
@@ -35,20 +35,15 @@
     
     
     <script type="text/javascript">
-        var counter = 0;
         var clusterCount = 0;
         var eventCount = [];
         var taskCount = [];
         var limit = 3;
 
-        function addGame(){
-            counter++;
-            console.log("adding more");
+        function addGame() {
             var newFields = document.getElementById('readroot').cloneNode(true);
-            newFields.id = 'wr'+counter;
+            newFields.id = 'wr1';
             newFields.style.display = 'block';
-            // var clusterName = newFields.getElementsByClassName('clusterName')[0];
-            // clusterName.innerHTML = clusterName.innerHTML + " " + cluscounter;
             var newField = newFields.childNodes;
             for (var i=0;i<newField.length;i++) {
                 var theName = newField[i].name
@@ -85,17 +80,14 @@
         function addNewEvent(clusNum){
             if(eventCount[clusNum] == null){
                 eventCount[clusNum] = 0;
+                taskCount[clusNum] = [];
             }
-            taskCount[clusNum] = [];
             eventCount[clusNum]++;
+            taskCount[clusNum][eventCount[clusNum]] = 0;
             var newDiv = document.createElement('div');
             newDiv.setAttribute("id","clus"+ clusNum +"event"+eventCount[clusNum]);
             newDiv.setAttribute("class", "Events");
             newDiv.innerHTML = 
-        /*
-            "<input type='button' class='hidebutton2' value='Hide'>"+
-                    "<input type='button' class='showbutton2' value='Show'>"+
-        */
             "<div class='event'>"+
                 "<span class='title'>Event "+eventCount[clusNum]+'</span>'+ 
                 "<input type='button' class='add_task_button' id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+clusNum+"' onclick='addNewTask("+clusNum+","+eventCount[clusNum]+");' value='ADD A TASK'>"+
@@ -122,12 +114,8 @@
             document.getElementById('clus'+clusNum).appendChild(newDiv);
         }
 
-            function addNewTask(clus, eve){
-                    if(taskCount[clus][eve] == null){
-                            taskCount[clus][eve] = 0;
-                    }
+        function addNewTask(clus, eve){
                     taskCount[clus][eve]++;
-
                     currentTask = taskCount[clus][eve];
 
                     var newDiv = document.createElement('div');
