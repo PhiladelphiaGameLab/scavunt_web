@@ -210,7 +210,8 @@ input[type="radio"]{
 
 /*different input fields with the same width*/
 
-.taskContent input, .taskContent select, .mediaImageContent select{
+.taskContent input, .taskContent select, .mediaTextContent td textarea, 
+.mediaImageContent select, .mediaAudioContent select, .mediaVideoContent select {
     border-radius: 5px;
     width: 315px;
     min-height: 18px;
@@ -230,7 +231,7 @@ input[type="radio"]{
     padding-left: 14px;
 }
 
-.mediaImageContent label{
+.mediaImageContent label, .mediaAudioContent label, .mediaVideoContent label {
     padding-left: 10px;
     padding-right: 3px;
 }
