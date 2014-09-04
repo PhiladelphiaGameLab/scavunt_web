@@ -253,7 +253,7 @@
                     "<label for='media'>Select Media:</label>"+
                     "<select name='media"+clus+"_"+eve+"_"+task+
                         "' for='media'>"+
-                        "<option value='drummer'>Drummer</option>"+
+                        "<option value='sameer'>Sameer</option>"+
                     "</select>";
             }
             //if video
@@ -266,7 +266,7 @@
                     "<label for='media'>Select Media:</label>"+
                     "<select name='media"+clus+"_"+eve+"_"+task+
                         "' for='media'>"+
-                        "<option value='sameer'>Sameer</option>"+
+                        "<option value='drummer'>Drummer</option>"+
                     "</select>";
             }
             mediaRoot.appendChild(newDiv);

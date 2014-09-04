@@ -74,37 +74,36 @@ function submitToDB(){
 
 				$ret = mysqli_query($con, $taskid_query);
 				$temp_task = mysqli_fetch_array($ret);
+				
+                		$type = $postarr["activity_type".$arrOfTasks[$l][$m][$n].""];
+				echo "Type:".$type;
+                		if($type == "receive_text") {
+                    			$url = $postarr["media".$arrOfTasks[$l][$m][$n].""];
+                    			$type = "text";
+                		}
+                		else if($type == "receive_image") {
+                    			$type = "image";
 
-                $type = $temp_task[2];
+                    			if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "cityhall") {
+                        			$url = "http://wibblywobblytracker.com/scavunt_web/resources/city_hall.jpg";
+                    			}		
+                    			else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "clothespin") {
+                        			$url = "http://wibblywobblytracker.com/scavunt_web/resources/clothespin.jpg";
+                    			}
+                    			else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "municipal"){
+                       	 			$url = "http://wibblywobblytracker.com/scavunt_web/resources/municipal.jpg";
+                    			}
 
-                if($type == "receive_text") {
-                    $url = $postarr["media".$arrOfTasks[$l][$m][$n].""];
-                    $type = "text";
-                }
-                else if($type == "receive_image") {
+                		}
+                		else if($type == "receive_audio") {
+                    			$type = "audio";
 
-                    $type = "image";
-
-                    if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "cityhall") {
-                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/city_hall.jpg";
-                    }
-                    else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "clothespin") {
-                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/clothespin.jpg";
-                    }
-                    else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "municipal"){
-                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/municipal.jpg";
-                    }
-
-                }
-                else if($type == "receive_audio") {
-                    $type = "audio";
-
-                    $url = "wibblywobblytracker.com/scavunt_web/resources/sameer_audio_15th_and_jfk.mp3";
-                } 
-                else if($type == "receive_video") {
-                    $type = "video";
-                    $url = "http://wibblywobblytracker.com/scavunt_web/resources/drummer_on_15th_between_market_and_jfk.mp4";
-                }
+                    			$url = "http://wibblywobblytracker.com/scavunt_web/resources/sameer_audio_15th_and_jfk.mp3";
+                		} 
+                		else if($type == "receive_video") {
+                    			$type = "video";
+                    			$url = "http://wibblywobblytracker.com/scavunt_web/resources/drummer_on_15th_between_market_and_jfk.mp4";
+                		}
 
 				$mediaquery = "INSERT INTO Media VALUES(null,'".$url."','".$type."',".$temp_task[0].", null);";
 				mysqli_query($con, $mediaquery);
