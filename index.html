@@ -1,0 +1,385 @@
+<html>
+<head>
+    <title>Scavunt</title>
+    <link rel="stylesheet" href="main_style.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,900'
+        rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Righteous'
+        rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+    
+    <!-- Header -->
+		<header id="header">
+			<!-- Logo -->
+            <img id ="logo" src="images/logo.png" height="36" width="36">
+<!--			<h3 id="logo">Scavunt</h3>-->
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="#home">Home</a></li>
+					<li><a href="#create">Create</a></li>
+                    <li><a href="#help">Help</a></li>
+					<li><a href="#about">About</a></li>
+				</ul>
+			</nav>
+		</header>
+    
+    
+    
+    <div class="ground" id="home">
+        
+        <div id="landing">
+            <h1>Welcome to Scavunt</h1>
+            <a><img src="images/BigLogo_trans.png"></a>
+            <p>Scavunt is a location-based game creation platform that let you design a scavenger hunt and share the game with your friends. With a specified game name, you and your friend can access the same content on an Android device with the Scavunt app. Go to locations, solve puzzles and enjoy a nice day out.</p>
+        </div>
+        <div id="create"></div>
+        <div id="readroot" style="display:none;">
+            <h2>Create a new Scavunt game:</h2>
+            <table id = "rootContent">
+                <tr>
+                    <td><label for="title" id="GameName">Game Name:
+                        </label></td>
+                    <td><input type="text" name="game_name" size= 30
+                            required/></td>
+                </tr>
+                <tr>
+                    <td><label for="desc">Description:</label></td>
+                    <td><textarea type="text" rows="5" cols="30"
+                        name="game_desc" required></textarea></td>
+                </tr>
+            </table>
+        </div>
+        <form method="post" action="dataentry.php" enctype="multipart/form-data">
+            <span id="writeroot"></span>
+            <input type="button" class="add_cluster_button" id="addClusters"
+                onclick="addNewCluster();" value="ADD A CLUSTER"/>
+            <input type="submit" class="make_game_button" value="MAKE GAME"/>
+        </form>
+        
+        <div id="help">
+        <h1>How to create a Scavunt game</h1>
+            <ul>
+                <li>Go to the game creation page</li>
+                <li>Enter a name and a discription for your game</li>
+                <li>Click on  "ADD A CLUSTER" (earily version only support a single cluster)</li>
+                <li>Createa newt event by clicking "ADD A EVENT"</li>
+                    <ul>
+                    <li>Set up a event name</li>
+                    <li>the latitude and the longitude of the location you want the event to trigger.</li>
+                    <li>(We currently only support numerial values for  the latitude and the longitude, see "How to get the location value from Google Maps" for details)</li>
+                    <li>Enter how close the player needs to be from the location to trigger the event in "Active Range"</li>
+                    <li>Click on "ADD A EVENT" again to create another event</li>
+                    <li>Events in a cluster is triggered by order, when the previous events is finished the next event will be activated</li>
+                    </ul>
+                <li>Create a new task by clicking "ADD A TASK"</li>
+                    <ul>
+                    <li>Check either the task is "Must Complete" or "Optional" </li>
+                    <li>Give the task a name</li>
+                    <li>Choose a "Activation Type"</li>
+                        <ul>
+                        <li>Instant -- the task is always active when the event activates</li>
+                        <li>In Range Once -- the task is active when the event activates and the player enters the Active Range of the event once</li>
+                        <li>In Range Only - the task is only active when then events activates and the player is in the Active Range from the location</li>
+                        </ul>
+                    <li>Choose a type for the task in "Activity"</li>
+                        <ul>
+                        <li>Receive Text -- the player can click on this task to see a message</li>
+                        <li>Receive Image -- the player can click on this task to see a picture</li>
+                        <li>Tips: mix your hints in pictures and images to guide your player to the next location</li>
+                        </ul>
+                    <li>Set up a timer that you would like the task to activate when the event activates in "Delay"</li>
+                    <li>When all the "Must Complete" tasks are activated and finished in a event, the event itself is finished</li>
+                    </ul>
+                <li><b>When you are ready to turn your creation into a game, click on "MAKE GAME "</b></li>
+                <li>Now with your game name, you can try out the game with the Scavunt app</li>
+        </ul>
+            </div>
+        <div id="about">
+        <h1>The team</h1>
+            <p>Aaron Sagel, Ashley Carasquillo, Don Xu, Jake Ailor, Sameer Rao, 
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var clusterCount = 0;
+        var eventCount = [];
+        var taskCount = [];
+        var clusterLimit = 3;
+
+        function addGame() {
+            var newFields = document.getElementById('readroot')
+                    .cloneNode(true);
+            newFields.id = 'wr1';
+            newFields.style.display = 'block';
+            var insertHere = document.getElementById('writeroot');
+            insertHere.parentNode.insertBefore(newFields,insertHere);
+        }
+
+        function addNewCluster(){
+            clusterCount++;
+            if(clusterCount > clusterLimit){
+                alert("You have reached the limit of adding clusters." +    
+                    "  You can't have "+clusterCount+" or more"+
+                    " clusters");		
+            }
+            else{
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id","clus"+clusterCount);
+                newDiv.setAttribute("class", "Clusters");
+                newDiv.addEventListener("click", function(e) {
+                    var eventListener = e.target;
+                    var className = "hide";
+                    if( hasClass(eventListener, "hide")) {
+                        addClass(eventListener, "hide");
+                    }
+                    else {
+                        removeClass(eventListener, "hide");
+                    }
+                });
+                newDiv.innerHTML = 
+                    "<span class='title'>Cluster "+clusterCount+"</span>"+
+                    "<input type='button'"+"class='add_event_button'"+
+                        " id='addEventsForClus"+clusterCount+"'"+
+                        " onclick='addNewEvent("+clusterCount+");'"+
+                        " value='ADD AN EVENT' />";
+
+                var insertHere = document.getElementById('writeroot');
+                insertHere.parentNode.insertBefore(newDiv,insertHere);
+                
+                eventCount[clusterCount] = 0;
+                taskCount[clusterCount] = [];
+            }
+        }
+
+        function addNewEvent(clusNum){
+            eventCount[clusNum]++;
+            taskCount[clusNum][eventCount[clusNum]] = 0;
+
+            var newDiv = document.createElement('div');
+            newDiv.setAttribute("id","clus"+ clusNum +"event"+
+                eventCount[clusNum]);
+            newDiv.setAttribute("class", "Events");
+            newDiv.innerHTML = 
+                "<div class='event'>"+
+                "<span class='title'>Event "+eventCount[clusNum]+"</span>"+
+                "<input type='button' class='add_task_button'"+
+                    " id='addTasksForEvent"+eventCount[clusNum]+"ForClus"+
+                    clusNum+"' onclick='addNewTask("+clusNum+","+
+                    eventCount[clusNum]+");' value='ADD A TASK'>"+
+                "<table id = 'eventContent'>"+
+                "<tr>"+
+                    "<td><label for='ename'>Event Name:</label></td>"+
+                    "<td><input type='text' name='event_name"+clusNum+"_"+
+                        eventCount[clusNum]+"' for='ename' required/></td>"+
+                "</tr>"+
+                "<tr>"+
+                    "<td><label for='latv'>Latitude:</label></td>"+
+                    "<td><input type='number' name='lat"+clusNum+"_"+
+                        eventCount[clusNum]+"' for='latv' step='any'"+
+                        " required/></td>"+
+                "</tr>"+
+                "<tr>"+
+                    "<td><label for='lonv'>Longitude:</label></td>"+
+                    "<td><input type='number' name='log"+clusNum+"_"+
+                        eventCount[clusNum]+"' for='lonv 'step='any'"+
+                        " required/></td>"+
+                "</tr>"+
+                "<tr>"+
+                    "<td><label for='distv'>Active Range:</label></td>"+
+                    "<td><input type='number' name='distance"+clusNum+"_"+
+                    eventCount[clusNum]+"' for='distv'step='any'required/>"+
+                    "</td>"+
+                "</tr>"+
+                "</table>"+
+                "</div>";
+
+            document.getElementById('clus'+clusNum).appendChild(newDiv);
+        }
+
+        function addNewTask(clus, eve){
+            taskCount[clus][eve]++;
+            currentTask = taskCount[clus][eve];
+
+            var newDiv = document.createElement('div');
+            newDiv.setAttribute("id", "clus" + clus + "event" + eve +
+                "task" + taskCount[clus][eve]);
+            newDiv.setAttribute("class", "Tasks");
+            newDiv.innerHTML = 
+                "<span class = 'title'>Task " + taskCount[clus][eve]+
+                    "</span>"+
+                "<input type='radio' name='comp"+clus+"_"+eve+"_"+
+                    taskCount[clus][eve]+"' value='must_complete'>Must "+
+                    "Complete"+
+                "&nbsp&nbsp"+
+                "<input type='radio' name='comp"+clus+"_"+eve+"_"+
+                    taskCount[clus][eve]+"' value='opt_complete'>Optional"+
+                "<table class='taskContent'>"+
+                "<tr>"+
+                    "<td><label for='tname'>Task Name:</label></td>"+
+                    "<td><input type='text' name='task_name"+clus+"_"+eve+
+                        "_"+taskCount[clus][eve]+"' for='tname'/></td>"+
+                "</tr>"+
+                "<tr>"+
+                    "<td><label for='acatype'>Activation:</label></td>"+
+                    "<td><select name='activation_type"+clus+"_"+eve+"_"+
+                        taskCount[clus][eve]+"' for='acatype'>"+
+                        "<option value='instant'>Instant</option>"+
+                        "<option value='in_range_once'>In Range Once"+
+                            "</option>"+
+                        "<option value='in_range_only'>In Range Only"+
+                            "</option>"+
+                    "</select></td>"+
+                "<tr>"+
+                    "<td><label for='actype'>Activity Type:</label></td>"+
+                    "<td><select name='activity_type"+clus+"_"+eve+"_"+
+                        currentTask+"' for='actype'"+
+                        " onchange='addMedia(this.selectedIndex,"+clus+","+
+                        eve+","+currentTask+");' onfocus="+
+                        "'this.selectedIndex = -1;'>"+
+                        "<option value='receive_text'>Receive Text"+
+                            "</option>"+
+                        "<option value='receive_image'>Receive Image"+
+                            "</option>"+
+                        "<option value='receive_audio'>Receive Audio"+
+                            "</option>"+
+                        "<option value='receive_video'>Receive Video"+
+                            "</option>"+
+
+                //      "<option value='take_picture'>Take Picture</option>"+
+                //      "<option value='record_video'>Record Video</option>"+
+                //      "<option value='response_text'>Response Text</option>"+
+                //      "<option value='service_receive_audio'>Service Receive Audio</option>"+
+                    "</select></td>"+
+                "</tr>"+
+                "<tr>"+
+                    "<td><label for='delay'>Delay:</label></td>"+
+                    "<td><input type='number' name='delay"+clus+"_"+eve+"_"+
+                        taskCount[clus][eve]+"' for='delay'></td>"+
+                "</tr>"+
+                "</table>"+
+                "<span id='mediaRoot"+clus+"_"+eve+"_"+taskCount[clus][eve]+
+                    "' class='mediaRoot'></span>";
+
+            document.getElementById('clus'+clus+'event'+eve).
+                appendChild(newDiv);
+            addMedia(0, clus, eve, currentTask);
+        }
+
+        function addMedia(index, clus, eve, task) {
+            console.log(index);
+
+            var mediaRoot = document.getElementById('mediaRoot'+clus+'_'
+                +eve+'_'+task);
+
+            //remove previous media
+            while(mediaRoot.firstChild) {
+                mediaRoot.removeChild(mediaRoot.firstChild);
+            }
+
+            //if text
+            if(index == 0) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id", "clus" + clus + "event" + eve + 
+                    "task" + task + "media");
+                newDiv.setAttribute("class","mediaTextContent");
+                newDiv.innerHTML = 
+                    "<table>"+
+                    "<tr>"+
+                        "<td><label for='media' class='title'>"+
+                            "Enter Text:</label></td>"+
+                        "<td><textarea rows='12' cols='37' name='media"+
+                            clus+"_"+eve+"_"+task+"' for='media'>"+
+                            "</textarea></td>"+
+                    "</tr>"+
+                    "</table>";
+            }
+            //if image
+            else if(index == 1) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id", "clus" + clus + "event" + eve + 
+                    "task" + task + "media");
+                newDiv.setAttribute("class","mediaImageContent");
+                /*
+                newDiv.innerHTML = 
+                    "<label for='media'>Select Media:</label>"+
+                    "<select name='media"+clus+"_"+eve+"_"+task+
+                        "' for='media'>"+
+                        "<option value='cityhall'>City Hall</option>"+
+                        "<option value='clothespin'>The Clothespin"+
+                            "</option>"+
+                        "<option value='municipal'>The Municipal Building"+
+                            "</option>"+
+                    "</select>";
+                 */
+                newDiv.innerHTML =
+                    "<label for='media'>Select Image to Upload:</label><br>"+
+                    //<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    "<input type='file' name='media"+clus+"_"+eve+"_"+task+"'>";
+            }
+            //if audio
+            else if(index == 2) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id", "clus" + clus + "event" + eve +
+                    "task" + task + "media");
+                newDiv.setAttribute("class","mediaAudioContent");
+                newDiv.innerHTML =
+                    "<label for='media'>Select Media:</label>"+
+                    "<select name='media"+clus+"_"+eve+"_"+task+
+                        "' for='media'>"+
+                        "<option value='sameer'>Sameer</option>"+
+                    "</select>";
+            }
+            //if video
+            else if(index == 3) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id", "clus" + clus + "event" +eve +
+                    "task" + task + "media");
+                newDiv.setAttribute("class","mediaAudioContent");
+                newDiv.innerHTML =
+                    "<label for='media'>Select Media:</label>"+
+                    "<select name='media"+clus+"_"+eve+"_"+task+
+                        "' for='media'>"+
+                        "<option value='drummer'>Drummer</option>"+
+                    "</select>";
+            }
+            mediaRoot.appendChild(newDiv);
+        }
+
+        function hasClass( eventListener, className) {
+            if(eventListener.classList) {
+                return eventListener.classList.contains(className) ? 0 : 1;
+            }
+            else {
+                return new RegExp('(^| )' + className + '( |$)', 'gi').
+                    test(eventListener.className) ? 0 : 1;
+            }
+        }
+
+        function addClass( eventListener, className) {
+            if(eventListener.classList) {
+                eventListener.classList.add(className);
+            }
+            else {
+                el.className += ' ' + className;
+            }
+        }
+
+        function removeClass( eventListener, className) {
+            if (eventListener.classList) {
+                eventListener.classList.remove(className);
+            }
+            else {
+                eventListener.className = eventListener.className.
+                    replace(new RegExp('(^|\\b)' + className.split(' ')
+                    .join('|') + '(\\b|$)', 'gi'), ' ');
+            }
+        }
+
+        window.onload = addGame;
+
+    </script>
+</body>
+</html>
