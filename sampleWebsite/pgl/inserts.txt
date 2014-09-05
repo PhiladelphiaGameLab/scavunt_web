@@ -1,0 +1,89 @@
+insert 1:
+
+
+<?php 
+			// if($_SESSION['admin'] == True){
+		?>
+
+		<script>
+		// 	// admin code:
+
+		// 	// ajax to update.php?field=whatever&contentBlurb=whatever
+		// 	// do as post
+
+		// 	<?php //update.php
+		// 		$mysqli = new mysqli("localhost", "root", "pass", "pgl");
+		// 		/* check connection */
+		// 		if ($mysqli->connect_errno) {
+		// 		  printf("Connect failed: %s\n", $mysqli->connect_error);
+		// 		  exit();
+		// 		}
+		// 		$query = "UPDATE content SET fieldContent = $_POST['contentBlurb'] WHERE fieldName = $_POST['field']";
+		// 		$result = $mysqli->query($query);
+		// 	?>
+	
+		</script>
+
+		<?php
+        // }
+    ?>
+
+
+insert 2:
+
+
+	<?php
+
+		// $mysqli = new mysqli("localhost", "root", "", "pgl");
+	
+		// /* check connection */
+		// if ($mysqli->connect_errno) {
+	 //    printf("Connect failed: %s\n", $mysqli->connect_error);
+	 //    exit();
+		// }
+	
+		// $query = "SELECT * FROM content";
+	
+		// if ($result = $mysqli->query($query)) {
+	
+	 //    /* fetch associative array */
+	 //    while ($row = $result->fetch_assoc()) {
+	 //    	$content[$row['fieldName']] = $row['fieldContent'];
+	 //    }
+	
+	 //    /* free result set */
+	 //    $result->free();
+		// }
+
+	?>
+
+
+insert 3:
+
+
+					<?php
+
+						// $query = "SELECT * FROM portfolio";
+						// 	if ($result = $mysqli->query($query)) {
+					 //    	/* fetch associative array */
+					 //    	while ($row = $result->fetch_assoc()) {
+						// 			echo "<div id='$row['projectName']' class='row flush images'>";
+						// 			echo "<div class='6u'><a href='images/fulls/01.jpg' class='image fit from-left'>";
+						// 			echo "<img src='images/$row['projectName'].png' title='$row['projectTitle']' alt='' /></a></div>";
+						// 			<div class="6u"><a href="images/fulls/02.jpg" class="image fit from-right"><img src="new/sonic.png" title="Airchitecture II" alt="" /></a></div>
+						// 			</div>
+					 //    	}
+					 //    /* free result set */
+					 //    $result->free();
+						// 	}
+
+					?>
+
+
+insert 4:
+
+
+<?php
+	// close connection 
+	// $mysqli->close();
+?>
