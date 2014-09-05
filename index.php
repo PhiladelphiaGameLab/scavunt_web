@@ -25,7 +25,7 @@
                 </tr>
             </table>
         </div>
-        <form method="post" action="dataentry.php">
+        <form method="post" action="dataentry.php" enctype="multipart/form-data">
         <span id="writeroot"></span>
         <input type="button" class="add_cluster_button" id="addClusters"
             onclick="addNewCluster();" value="ADD A CLUSTER"/>
@@ -232,6 +232,7 @@
                 newDiv.setAttribute("id", "clus" + clus + "event" + eve + 
                     "task" + task + "media");
                 newDiv.setAttribute("class","mediaImageContent");
+                /*
                 newDiv.innerHTML = 
                     "<label for='media'>Select Media:</label>"+
                     "<select name='media"+clus+"_"+eve+"_"+task+
@@ -242,6 +243,11 @@
                         "<option value='municipal'>The Municipal Building"+
                             "</option>"+
                     "</select>";
+                 */
+                newDiv.innerHTML =
+                    "<label for='media'>Select Image to Upload:</label><br>"+
+                    //<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    "<input type='file' name='media"+clus+"_"+eve+"_"+task+"'>";
             }
             //if audio
             else if(index == 2) {
