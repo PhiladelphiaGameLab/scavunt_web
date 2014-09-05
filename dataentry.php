@@ -1,12 +1,18 @@
 <?php
 
-function submitToDB(){
+function submitToDB() {
 	$postarr = $_POST;
 	$arrOfEvents;
 	$arrTask;
 	$arrOfTasks;
 	$numOfEvents = 0;
-	//$numOfTotalTasks = 0;
+
+    $blacklist = array(".php", ".phtml", ".php3", ".php4");
+    $allowedImageExtensions = array("gif", "jpeg", "jpg", "png");
+    $allowedVideoExtensions = array("3gp", "mp4");
+    $allowedAudioExtensions = array("3gp", "mp4", "mp3", "m4a", "flac", "ogg", "wav");
+    $maxSize = 50000;
+
 	$i = 1;
 	$j = 1;
 	$k = 1;
@@ -71,26 +77,91 @@ function submitToDB(){
 				mysqli_query($con, $taskquery);
 				echo $taskquery;
 				$taskid_query = "SELECT id FROM Tasks WHERE uni_id = '".$uni_id."'";
+
 				$ret = mysqli_query($con, $taskid_query);
 				$temp_task = mysqli_fetch_array($ret);
-				$type = "";
-				if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "cityhall"){
-					$url = "http://wibblywobblytracker.com/scavunt_web/resources/city_hall.jpg";
-					$type="image";
-				}
-				else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "clothespin"){
-                                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/clothespin.jpg";
-					$type="image";
+				
+                $type = $postarr["activity_type".$arrOfTasks[$l][$m][$n].""];
+				echo "Type:".$type;
+                		if($type == "receive_text") {
+                    			$url = $postarr["media".$arrOfTasks[$l][$m][$n].""];
+                    			$type = "text";
+                		}
+                		else if($type == "receive_image") {
+                    			$type = "image";
+
+                                foreach ($blacklist as $item) {
+                                    if(preg_match("/$item$/i", $_FILES["media".$arrOfTasks[$l][$m][$n].""]['name'])) {
+                                        echo "Invalid file type";
+                                        exit;
+                                    }
                                 }
-				else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "municipal"){
-                                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/municipal.jpg";
-                                        $type="image";
+
+                                $canLoad = false;
+                                foreach ($allowedImageExtensions as $item) {
+                                    if($_FILES["media".$arrOfTasks[$l][$m][$n].""]["type"] == "image/".$item) {
+                                        $canLoad = true;
+                                    }
                                 }
-				else {
-					$url = $postarr["media".$arrOfTasks[$l][$m][$n].""];
-					$type="text";
-				}
-				//$mediaquery = "INSERT INTO Media VALUES(null,'".$url."','image',".$temp_task[0].", null);";
+
+                                if($_FILES["media".$arrOfTasks[$l][$m][$n].""]["size"] > $maxSize) {
+                                    $canLoad = false;
+                                    echo "Image file to large";
+                                }
+
+
+                                $extension = end(explode(".", $_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"]));
+                                if(!in_array($extension, $allowedExts)) {
+                                    $canLoad = false;
+                                    echo "Not valid image file type";
+                                }
+
+                                if($canLoad) {
+                                    if ($_FILES["file"]["error"] > 0) {
+                                        echo "Return Code: " . $_FILES["media".$arrOfTasks[$l][$m][$n].""]["error"] . "<br>";
+                                    } else {
+                                        echo "Upload: " . $_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"] . "<br>";
+                                        echo "Type: " . $_FILES["media".$arrOfTasks[$l][$m][$n].""]["type"] . "<br>";
+                                        echo "Size: " . ($_FILES["media".$arrOfTasks[$l][$m][$n].""]["size"] / 1024) . " kB<br>";
+                                        echo "Temp file: " . $_FILES["media".$arrOfTasks[$l][$m][$n].""]["tmp_name"] . "<br>";
+                                        if (file_exists("resources/" . $_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"])) {
+                                            echo $_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"] . " already exists. ";
+                                        } else {
+                                            move_uploaded_file($_FILES["media".$arrOfTasks[$l][$m][$n].""]["tmp_name"], "resources/".
+                                                $_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"]);
+                                            echo "Stored in: " . "upload/" . $_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"];
+                                        }
+                                        $url = "http://wibblywobblytracker.com/scavunt_web/resources/".$_FILES["media".$arrOfTasks[$l][$m][$n].""]["name"];
+                                    }
+                                }
+                                else {
+                                    echo "Error loading file";
+                                    exit;
+                                }
+
+                                /*
+                    			if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "cityhall") {
+                        			$url = "http://wibblywobblytracker.com/scavunt_web/resources/city_hall.jpg";
+                    			}		
+                    			else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "clothespin") {
+                        			$url = "http://wibblywobblytracker.com/scavunt_web/resources/clothespin.jpg";
+                    			}
+                    			else if($postarr["media".$arrOfTasks[$l][$m][$n].""] == "municipal"){
+                       	 			$url = "http://wibblywobblytracker.com/scavunt_web/resources/municipal.jpg";
+                                }
+                                */
+
+                		}
+                		else if($type == "receive_audio") {
+                    			$type = "audio";
+
+                    			$url = "http://wibblywobblytracker.com/scavunt_web/resources/sameer_audio_15th_and_jfk.mp3";
+                		} 
+                		else if($type == "receive_video") {
+                    			$type = "video";
+                    			$url = "http://wibblywobblytracker.com/scavunt_web/resources/drummer_on_15th_between_market_and_jfk.mp4";
+                		}
+
 				$mediaquery = "INSERT INTO Media VALUES(null,'".$url."','".$type."',".$temp_task[0].", null);";
 				mysqli_query($con, $mediaquery);
 				$n++;

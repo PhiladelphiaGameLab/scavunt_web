@@ -25,7 +25,7 @@
                 </tr>
             </table>
         </div>
-        <form method="post" action="dataentry.php">
+        <form method="post" action="dataentry.php" enctype="multipart/form-data">
         <span id="writeroot"></span>
         <input type="button" class="add_cluster_button" id="addClusters"
             onclick="addNewCluster();" value="ADD A CLUSTER"/>
@@ -171,10 +171,13 @@
                         "'this.selectedIndex = -1;'>"+
                         "<option value='receive_text'>Receive Text"+
                             "</option>"+
-                //      "<option value='receive_audio'>Receive Audio</option>"+
-                //      "<option value='receive_video'>Receive Video</option>"+
                         "<option value='receive_image'>Receive Image"+
                             "</option>"+
+                        "<option value='receive_audio'>Receive Audio"+
+                            "</option>"+
+                        "<option value='receive_video'>Receive Video"+
+                            "</option>"+
+
                 //      "<option value='take_picture'>Take Picture</option>"+
                 //      "<option value='record_video'>Record Video</option>"+
                 //      "<option value='response_text'>Response Text</option>"+
@@ -229,6 +232,7 @@
                 newDiv.setAttribute("id", "clus" + clus + "event" + eve + 
                     "task" + task + "media");
                 newDiv.setAttribute("class","mediaImageContent");
+                /*
                 newDiv.innerHTML = 
                     "<label for='media'>Select Media:</label>"+
                     "<select name='media"+clus+"_"+eve+"_"+task+
@@ -238,6 +242,37 @@
                             "</option>"+
                         "<option value='municipal'>The Municipal Building"+
                             "</option>"+
+                    "</select>";
+                 */
+                newDiv.innerHTML =
+                    "<label for='media'>Select Image to Upload:</label><br>"+
+                    //<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    "<input type='file' name='media"+clus+"_"+eve+"_"+task+"'>";
+            }
+            //if audio
+            else if(index == 2) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id", "clus" + clus + "event" + eve +
+                    "task" + task + "media");
+                newDiv.setAttribute("class","mediaAudioContent");
+                newDiv.innerHTML =
+                    "<label for='media'>Select Media:</label>"+
+                    "<select name='media"+clus+"_"+eve+"_"+task+
+                        "' for='media'>"+
+                        "<option value='sameer'>Sameer</option>"+
+                    "</select>";
+            }
+            //if video
+            else if(index == 3) {
+                var newDiv = document.createElement('div');
+                newDiv.setAttribute("id", "clus" + clus + "event" +eve +
+                    "task" + task + "media");
+                newDiv.setAttribute("class","mediaAudioContent");
+                newDiv.innerHTML =
+                    "<label for='media'>Select Media:</label>"+
+                    "<select name='media"+clus+"_"+eve+"_"+task+
+                        "' for='media'>"+
+                        "<option value='drummer'>Drummer</option>"+
                     "</select>";
             }
             mediaRoot.appendChild(newDiv);
